@@ -1,14 +1,14 @@
-import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, Typography } from "@mui/material";
-import { useStoreContext } from "../../app/context/StoreContext";
+import { TableContainer, Paper, Table, TableBody, TableRow, TableCell } from "@mui/material";
+import { useAppSelector } from "../../app/store/configureStore";
 
 export default function BasketSummary() {
-    let  subtotal = 0;
+   // let  subtotal = 0;
     let deliveryFee = 0;
 
     let total = 0;
     
 
-    const {basket} = useStoreContext();
+    const {basket} = useAppSelector(state => state.basket);
 
     //sum starts at zero
 

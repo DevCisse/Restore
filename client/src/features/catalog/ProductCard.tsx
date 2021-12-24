@@ -1,30 +1,33 @@
 import {  Avatar, Button, Card, CardActions, CardContent, CardMedia, Typography, CardHeader } from "@mui/material";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import agent from "../../app/api/agent";
 import { Product } from "../../app/models/product";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useStoreContext } from "../../app/context/StoreContext";
 import { currencyFormatter } from "../../app/util/util";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { addBasketItemAsync } from "../basket/BasketSlice";
 
 interface Props {
     product: Product;
 }
 export default function ProductCard({ product }: Props) {
 
-    const {setBasket} = useStoreContext();
+    //const {setBasket} = useStoreContext();
 
-    const[loading,setLoading] =useState(false);
+    const {status} = useAppSelector(state => state.basket)
+
+    const dispatch = useAppDispatch();
+
+  //   const[loading,setLoading] =useState(false);
     
 
-    function handleAddItem(productId: number)
-    {
-        setLoading(true);
-        agent.Basket.addItem(productId)
-        .then(basket => setBasket(basket))
-        .catch(error => console.log(error))
-        .finally(() => setLoading(false))
-    }
+    // function handleAddItem(productId: number)
+    // {
+    //     setLoading(true);
+    //     agent.Basket.addItem(productId)
+    //     .then(basket => dispatch(setBasket(basket)))
+    //     .catch(error => console.log(error))
+    //     .finally(() => setLoading(false))
+    // }
     return (
         // <ListItem key={product.id}>  
         // <ListItemAvatar>
@@ -66,7 +69,7 @@ export default function ProductCard({ product }: Props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <LoadingButton loading={loading} onClick={() => handleAddItem(product.id)} size="small"  >Add To Cart</LoadingButton>
+                <LoadingButton loading={status.includes("pendingAddItem" + product.id)} onClick={() => dispatch(addBasketItemAsync({productId: product.id}))} size="small"  >Add To Cart</LoadingButton>
                 <Button size="small" component ={Link} to={`/catalog/${product.id}`}>View</Button>
             </CardActions>
         </Card>

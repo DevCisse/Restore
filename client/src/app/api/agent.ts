@@ -96,4 +96,4 @@ const agent = {
 
 }
 
-export default agent;
+export default agent
