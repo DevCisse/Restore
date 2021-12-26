@@ -227,6 +227,7 @@ namespace API.Controllers
             var cookieOptions = new CookieOptions{IsEssential = true, Expires = DateTime.Now.AddDays(30)};
             
             Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+    
             var basket = new Basket{BuyerId = buyerId};
             _context.Baskets.Add(basket);
             return basket;

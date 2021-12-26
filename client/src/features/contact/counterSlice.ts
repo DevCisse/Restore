@@ -4,13 +4,15 @@ import { createSlice } from "@reduxjs/toolkit"
 export interface CounterState {
     data: number;
     title: string;
+    school : string;
 }
 
 
 
 const initialState: CounterState = {
     data: 42,
-    title: 'YARC (yet another redux counter with redux toolkit)'
+    title: 'YARC (yet another redux counter with redux toolkit)',
+    school : 'Ahmadu Bello University'
 }
 
 // const secondState : CounterState ={
