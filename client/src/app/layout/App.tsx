@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Container, createTheme, CssBaseline } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Route } from "react-router";
 import { ToastContainer } from "react-toastify";
 import AboutPage from "../../features/about/AboutPage";
@@ -16,12 +16,14 @@ import { Switch } from "react-router-dom";
 import Test from "../../features/Tests/Test";
 import BasketPage from "../../features/basket/BasketPage";
 //import { useStoreContext } from "../context/StoreContext";
-import { getCookie } from "../util/util";
-import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
 import CheckoutPage from "../../features/features/Checkout";
-import { setBasket } from "../../features/basket/BasketSlice";
+import { fetchBasketAsync } from "../../features/basket/BasketSlice";
 import { useAppDispatch } from "../store/configureStore";
+import Login from "../../features/account/Login";
+import Register from "../../features/account/Register";
+import { fetchCurrentUser } from "../../features/account/accountSlice";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -32,19 +34,33 @@ function App() {
    const dispatch = useAppDispatch();
   const [loading,setLoading] = useState(true);
 
-  useEffect(() =>{
-    const buyerId  = getCookie('buyerId');
-    if(buyerId)
-    {
-      agent.Basket.get()
-      .then(basket => dispatch(setBasket(basket)))
-      .catch(error => console.log(error))
-      .finally(() => setLoading(false))
-    }
-    else{
-      setLoading(false);
+
+  const  initApp = useCallback(async () =>
+  {
+    try {
+      await dispatch(fetchCurrentUser())
+      await dispatch(fetchBasketAsync());
+    } catch (error) {
+      console.log(error)
     }
   },[dispatch])
+
+  useEffect(() =>{
+    // dispatch(fetchCurrentUser());
+    // const buyerId  = getCookie('buyerId');
+    // if(buyerId)
+    // {
+    //   agent.Basket.get()
+    //   .then(basket => dispatch(setBasket(basket)))
+    //   .catch(error => console.log(error))
+    //   .finally(() => setLoading(false))
+    // }
+    // else{
+    //   setLoading(false);
+    // }
+
+    initApp().then(() => setLoading(false))
+  },[initApp])
 
 
 
@@ -88,7 +104,9 @@ function App() {
           <Route path='/contact' component={ContactPage} />
           <Route path='/server-error' component={ServerError} />
           <Route path='/basket' component={BasketPage} />
-          <Route path='/checkout' component={CheckoutPage} />
+          <PrivateRoute path='/checkout' component={CheckoutPage} />
+          <Route path='/Login' component={Login} />
+          <Route path='/Register' component={Register} />
 
           <Route path='/test' component={Test} />
           <Route path="/not-found" component={NotFound} />

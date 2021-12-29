@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { Link, NavLink } from "react-router-dom";
 //import { useStoreContext } from "../context/StoreContext";
 import { useAppSelector } from "../store/configureStore";
+import SignedInMenu from "./SignInMenu";
 
 
 
@@ -37,6 +38,8 @@ const navStyles = {
 }
 
 export default function Header({ darkMode, handleThemeChange }: Props) {
+
+    const {user} = useAppSelector(state => state.account);
 
    // const {basket} = useStoreContext();
     const {basket} = useAppSelector(state => state.basket);
@@ -79,7 +82,10 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                         </Badge>
                     </IconButton>
 
-                    <List sx={{ display: 'flex' }}>
+                    {user ? (
+                        <SignedInMenu />
+                    ) :(
+                        <List sx={{ display: 'flex' }}>
                         {rightLinks.map(({ title, path }) => (
                             <ListItem
                                 component={NavLink}
@@ -91,6 +97,9 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
                             </ListItem>
                         ))}
                     </List>
+                    )}
+
+                   
 
 
                 </Box>
