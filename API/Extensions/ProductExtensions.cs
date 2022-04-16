@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,15 @@ namespace API.Extensions
         {
 
             if(string.IsNullOrWhiteSpace(orderBy)) return query.OrderBy(p => p.Name);
+
+
+
+            // if(string.IsNullOrWhiteSpace(orderBy))
+            // {
+            //     return  from q in query 
+            //             orderby orderBy ascending
+            //             select q;
+            // }
 
              query  = orderBy switch
             {

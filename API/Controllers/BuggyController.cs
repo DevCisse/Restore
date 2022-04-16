@@ -19,6 +19,14 @@ namespace API.Controllers
         {
             return NotFound();
             
+
+
+        }
+
+        [HttpGet("get-count/{id}")]
+        public IActionResult GetCount( int id)
+        {
+            return Ok(id);
         }
 
 
@@ -52,6 +60,13 @@ namespace API.Controllers
         public IActionResult GetServerError()
         {
             throw new Exception("This is a server error");
+        }
+
+        [HttpGet("Testing")]
+        public ActionResult GetTesting()
+        {
+            ModelState.AddModelError("problem1", "We are just testing");
+            return ValidationProblem();
         }
     }
 }

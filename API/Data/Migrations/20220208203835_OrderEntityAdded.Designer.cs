@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220208203835_OrderEntityAdded")]
+    partial class OrderEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,14 +166,14 @@ namespace API.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "033ffc88-79b5-4f04-a17b-2dde7ee2acec",
+                            ConcurrencyStamp = "213d2a7d-f876-4497-b95d-1d7631dec161",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "e981e843-b9e8-40cd-a4db-56ed90dbb9bb",
+                            ConcurrencyStamp = "ac9f1bc5-0d28-48f9-ba3c-14826337619a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -246,27 +248,6 @@ namespace API.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address1")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("State")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Zip")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -447,8 +428,8 @@ namespace API.Data.Migrations
                             b1.Property<string>("PictureUrl")
                                 .HasColumnType("TEXT");
 
-                            b1.Property<int>("ProductId")
-                                .HasColumnType("INTEGER");
+                            b1.Property<string>("ProductId")
+                                .HasColumnType("TEXT");
 
                             b1.HasKey("OrderItemId");
 

@@ -24,12 +24,6 @@ using System.Threading.Tasks;
 
 namespace API
 {
-
-     class Employee
-     {
-         public int Id { get; set; }
-         public string Name { get; set; }
-     }
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -85,7 +79,7 @@ namespace API
             services.AddIdentityCore<User>(options =>{
                 options.User.RequireUniqueEmail = true;
             })
-            .AddRoles<IdentityRole>()
+            .AddRoles<Role>()
             .AddEntityFrameworkStores<StoreContext>();
 
 

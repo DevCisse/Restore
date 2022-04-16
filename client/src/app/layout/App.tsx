@@ -17,13 +17,16 @@ import Test from "../../features/Tests/Test";
 import BasketPage from "../../features/basket/BasketPage";
 //import { useStoreContext } from "../context/StoreContext";
 import LoadingComponent from "./LoadingComponent";
-import CheckoutPage from "../../features/features/Checkout";
+
 import { fetchBasketAsync } from "../../features/basket/BasketSlice";
 import { useAppDispatch } from "../store/configureStore";
 import Login from "../../features/account/Login";
 import Register from "../../features/account/Register";
 import { fetchCurrentUser } from "../../features/account/accountSlice";
 import PrivateRoute from "./PrivateRoute";
+import CheckoutPage from "../../features/checkout/CheckoutPage";
+import Orders from "../../features/orders/Orders";
+import OrderDetail from "../../features/orders/OrderDetail";
 
 
 
@@ -105,6 +108,8 @@ function App() {
           <Route path='/server-error' component={ServerError} />
           <Route path='/basket' component={BasketPage} />
           <PrivateRoute path='/checkout' component={CheckoutPage} />
+          <PrivateRoute path='/orders' exact component={Orders} />
+          <PrivateRoute path='/orders/:id'   component={OrderDetail} />
           <Route path='/Login' component={Login} />
           <Route path='/Register' component={Register} />
 
