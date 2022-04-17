@@ -1,4 +1,4 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,6 +23,13 @@ export default function Orders() {
     if (loading) return <LoadingComponent message="loading orders... " />
 
     return (
+
+        <>
+        <Typography  variant="h4" >
+                  Orders
+                </Typography>
+        
+        
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -56,6 +63,7 @@ export default function Orders() {
                 </TableBody>
             </Table>
         </TableContainer>
+        </>
     )
 }
 
