@@ -95,30 +95,34 @@ function App() {
 
       <CssBaseline />
       <Header darkMode={darkMode} handleThemeChange={handleChange} />
-        
+      <Route path='/' exact component={HomePage} />
+      <Route path ={'/(.+)'} render ={() =>(
+         <Container sx={{ mt: 4 }}>
 
-      <Container>
+         <Switch>
+         
+           <Route path='/catalog' exact component={Catalog} />
+           <Route path='/catalog/:id' component={ProductDetails} />
+           <Route path='/about' component={AboutPage} />
+           <Route path='/contact' component={ContactPage} />
+           <Route path='/server-error' component={ServerError} />
+           <Route path='/basket' component={BasketPage} />
+           <PrivateRoute path='/checkout' component={CheckoutWrapper} />
+           <PrivateRoute path='/orders' exact component={Orders} />
+           <PrivateRoute path='/orders/:id'   component={OrderDetail} />
+           <Route path='/Login' component={Login} />
+           <Route path='/Register' component={Register} />
+ 
+           <Route path='/test' component={Test} />
+           <Route path="/not-found" component={NotFound} />
+         </Switch>
+ 
+         {/* <Catalog  /> */}
+       </Container>
 
-        <Switch>
-          <Route path='/' exact component={HomePage} />
-          <Route path='/catalog' exact component={Catalog} />
-          <Route path='/catalog/:id' component={ProductDetails} />
-          <Route path='/about' component={AboutPage} />
-          <Route path='/contact' component={ContactPage} />
-          <Route path='/server-error' component={ServerError} />
-          <Route path='/basket' component={BasketPage} />
-          <PrivateRoute path='/checkout' component={CheckoutWrapper} />
-          <PrivateRoute path='/orders' exact component={Orders} />
-          <PrivateRoute path='/orders/:id'   component={OrderDetail} />
-          <Route path='/Login' component={Login} />
-          <Route path='/Register' component={Register} />
+      )} />
 
-          <Route path='/test' component={Test} />
-          <Route path="/not-found" component={NotFound} />
-        </Switch>
-
-        {/* <Catalog  /> */}
-      </Container>
+     
 
 
 
